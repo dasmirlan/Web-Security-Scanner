@@ -1,0 +1,12 @@
+import requests
+
+def check_xss(url):
+    test_script = '<script>alert(1)</script>'
+    payload = {'q': test_script}
+    response = requests.get(url, params=payload)
+    if test_script in response.text:
+        return "XSS vulnerability detected!"
+    return "No XSS vulnerability."
+
+url = 'http://example.com/search'
+print(check_xss(url))
